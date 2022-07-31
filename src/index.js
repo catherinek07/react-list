@@ -18,8 +18,26 @@ function App(){
   // list
   const [appointList,setAppointList] = useState([])
   //  search
+const [query, setQuery]= useState('')
+const [sortBy, setSortBy]= useState('petName')
+const [orderBy, setOrderBy] = useState('asc')
+
+const filterAppointments=appointList.filter(
+    item =>{return(
+    item.petName.toLowerCase().includes(query.toLowerCase())||
+    item.ownerName.toLowerCase().includes(query.toLowerCase())||
+    item.aptNotes.toLowerCase().includes(query.toLowerCase())
+  )}
+).sort(((a,b)=>{
+  let order = (orderBy === 'asc' ? 1:-1)
+  return(
+    a[sortBy].toLowerCase() < b[sortBy].toLowerCase? -1 * order :1*order
+  )
+})
+)
 
 // callBack
+
 const fetchData = useCallback(
   ()=>{
     fetch('./data.json')
@@ -34,11 +52,23 @@ useEffect(()=>{fetchData()},[fetchData])
     <article>
       <h3><BiArchive />
       welcome</h3>
-      <AddApointment /> 
-      <Search />
+      <AddApointment 
+      onSendAppointment = {myAppointment=> setAppointList([...appointList, myAppointment])}
+      lastId = {
+        appointList.reduce((max,item)=> Number(item.id) > max ? Number(item.id): max, 0)
+      }
+      /> 
+      <Search 
+      query={query}
+      onQueryChange = {myQuery =>setQuery(myQuery)}
+      sortBy={sortBy}
+      onSortChange={mySort=>setSortBy(mySort)}
+      orderBy={orderBy}
+      onOrderChange={myOrder=>setOrderBy(myOrder)}
+      />
       <div id="list">
       <ul>
-         {appointList.map( 
+         {filterAppointments.map( 
           (appointment) => 
             (<AddInfo 
               key={appointment.id} 
