@@ -1,36 +1,62 @@
-import React,{useState,useEffect,useCallback} from 'react';
-import ReactDOM from 'react-dom/client';
-import AddAppointment from './components/AddAppointment';
-import AddInfo from './components/AddInfo';
-import Search from './components/Search';
+import React,{useState,useEffect,useCallback} from 'react'
+import ReactDOM from 'react-dom/client'
 
-import appointData from './data.json'
+// 컴포넌트 import
+import AddApointment from './components/AddAppointment'
+ import AddInfo from './components/AddInfo'
+ import Search from './components/Search'
 
+// 목업
+// import appointData from './data.json'
+
+// 소스파일
 import './index.css'
-import {BiAt} from "react-icons/bi"
-import {BiArchive} from "react-icons/bi"
+import { BiArchive } from "react-icons/bi";
 
 function App(){
-  return(
+  // state
+  // list
+  const [appointList,setAppointList] = useState([])
+  //  search
+
+// callBack
+const fetchData = useCallback(
+  ()=>{
+    fetch('./data.json')
+    .then(response => response.json())
+    .then(data => setAppointList(data))
+  },[])
+
+// useEffect
+useEffect(()=>{fetchData()},[fetchData])
+
+  return (
     <article>
-      <h3>
-        Book an Appointment <BiArchive />
-      </h3>
-      <AddAppointment />
+      <h3><BiArchive />
+      welcome</h3>
+      <AddApointment /> 
       <Search />
-      <div class="list">
-        <ul>
-          {appointData.map(
-            (appointment) =>
-            (<AddInfo key={appointment.id} appointment={appointment} />)
-          )}
-        </ul>
+      <div id="list">
+      <ul>
+         {appointList.map( 
+          (appointment) => 
+            (<AddInfo 
+              key={appointment.id} 
+              appointment={appointment}
+              onDeleteAppoint={
+                appointmentId => setAppointList(appointList.filter(appointment => appointment.id !== appointmentId))
+              }
+               />) )
+          }
+      </ul>
       </div>
     </article>
   )
 }
 
-const root = ReactDOM.createRoot(document.querySelector('#root'));
+
+// 출력
+const root = ReactDOM.createRoot(document.querySelector('#root'))
 root.render(
   <React.StrictMode>
     <App />

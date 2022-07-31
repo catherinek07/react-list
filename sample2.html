@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sort()</title>
+</head>
+<body>
+    <script>
+        const str=[
+            {name:'jah', num:20},
+            {name:'dah', num:10},
+            {name:'gah', num:40},
+            {name:'nah', num:30},
+        ]
+        //increasing
+        const sec1= str.sort((a,b)=>{
+            return a.name < b.name ? -1: a.name? 1:0
+        })
+        //decreasing
+        const sec2= str.sort((a,b)=>{
+            return a.num < b.num ? 1: a.num? -1:0
+        })
+        console.log(sec1)
+    </script>
+    
+</body>
+</html>

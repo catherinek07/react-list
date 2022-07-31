@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sort()</title>
+</head>
+<body>
+    <script>
+        const num = [1,4,11,2,67,9]
+        console.log(num.sort())
+        document.write('ascii: ' +num.sort()+'<br>')
+        const num1 = num.sort((a,b) => {return a-b})
+        document.write('Increase', num1, '<br>')
+        const num2 = num.sort((a,b) => {return b-a})
+        document.write('Decrease', num2, '<br>')
+
+    </script>
+</body>
+</html>

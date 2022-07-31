@@ -1,9 +1,9 @@
 import {BiTrash} from 'react-icons/bi'
 
-function AddInfo({appointment}){
+
+
+function AddInfo({appointment, onDeleteAppoint}){
     return(
-        <div id ="list">
-        <ul>
         <li>
             <dl>
                 <dt>{appointment.petName}</dt>
@@ -18,17 +18,12 @@ function AddInfo({appointment}){
                 </dd>
             </dl>
             <p>
-                <button>
+                <button onClick={()=>{onDeleteAppoint(appointment.id)}}>
                     <BiTrash />
                 </button>
             </p>
         </li>
-        </ul>
-        </div>
     )
 }
 
 export default AddInfo
-
-
-

@@ -1,5 +1,7 @@
-import {BiSearch,BiCaretDown,BiCheck} from "react-icons/bi"
-function DropDown(){
+import React,{useState} from 'react'
+import {BiSearch,BiCaretDown} from "react-icons/bi"
+function DropDown({toggleSort}){
+   if (!toggleSort){return null}
     return(
         <ul>
             <li>Child Name</li>
@@ -11,13 +13,17 @@ function DropDown(){
     )
 }
 function Search(){
+    const [toggleSort, setToggleSort] = useState(false)
     return(
         <div id="search">
             <p>
             <BiSearch />
             <input type="text" placeholder="Search"/>
-            <button type="button">Order <BiCaretDown /></button>
-            <DropDown />
+            <button type="button" 
+            onClick={()=>{setToggleSort(!toggleSort)}}>
+                Order <BiCaretDown /></button>
+            <DropDown
+            toggleSort= {toggleSort}/>
             </p>
         </div>
         
